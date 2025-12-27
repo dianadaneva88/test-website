@@ -1,85 +1,78 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Responsive сайт</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://unpkg.com/@rive-app/canvas@2.24.0"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive сайт</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <header>
-  <h1>Моят сайт</h1>
-  <nav>
-    <a href="#">Начало</a>
-    <a href="#">За нас</a>
-    <a href="#">Контакти</a>
-  </nav>
+    <h1>Моят сайт</h1>
+    <nav>
+        <a href="#">Начало</a>
+        <a href="#">За нас</a>
+        <a href="#">Контакти</a>
+    </nav>
 </header>
 
 <main class="container">
-  <section class="card">Секция 1</section>
-  <section class="card">Секция 2</section>
-  <section class="card">Секция 3</section>
+    <section class="card">Секция 1</section>
+    <section class="card">Секция 2</section>
+    <section class="card">Секция 3</section>
 </main>
+  <div class="container">
+        <canvas id="canvas" width="700" height="700"></canvas>
+        <div class="content">
+            <a href="#">Upload Now</a>
+        </div>
+        <p></p>
+    </div>
+    <script src="https://unpkg.com/@rive-app/canvas@2.24.0"></script>
+    <script>
+   const btn = document.querySelector('a')
+        const stateName = document.querySelector('p')
 
-<div class="container">
-  <canvas id="canvas" width="700" height="700"></canvas>
-  <div class="content">
-    <a href="#" id="uploadBtn">Upload Now</a>
-  </div>
-</div>
+        const r = new rive.Rive({
+            src: './new_file_1.riv',
+            canvas: document.getElementById('canvas'),
+            autoplay: true,
+            stateMachines: 'State Machine 1',
+            fit: rive.Fit.cover,
+            onLoad: (_) => {
+                const inputs = r.stateMachineInputs('State Machine 1');
+                const bumpTrigger = inputs.find(i => i.name === 'Trigger 2');
+                bumpTrigger.fire();
+                btn.onclick = (e) => {
+                    e.preventDefault();
+                    bumpTrigger.fire()
+                };
+            },
+            onStateChange: (event) => {
+                //btn.innerHTML = event.data[0];
+                
+                if(event.data[0] == 'Fireup' || event.data[0] == 'Flying') {
+                    btn.innerHTML = 'Uploading..'
+                    btn.style.backgroundColor = 'rgba(255,255,255,.5)'
+                    document.querySelector('body').style.backgroundColor = '#8cbdff'
+                }
 
+                else if(event.data[0] == 'Firedown') {
+                    btn.innerHTML = 'Finished!'
+
+                    setTimeout(() => {
+                        btn.style.backgroundColor = 'white'
+                        btn.innerHTML = 'Upload File'
+                        document.querySelector('body').style.backgroundColor = 'rgb(0, 110, 255)'
+                    }, 1000)
+                }
+            },
+        });
+    </script>
 <footer>
-  © 2025 Моят сайт
+    © 2025 Моят сайт
 </footer>
-
-<script>
-  const btn = document.getElementById('uploadBtn');
-
-  const r = new rive.Rive({
-    src: './new_file_1.riv',
-    canvas: document.getElementById('canvas'),
-    autoplay: true,
-    stateMachines: 'State Machine 1',
-    fit: rive.Fit.cover,
-
-    onLoad: () => {
-      const inputs = r.stateMachineInputs('State Machine 1');
-      console.log(inputs); // 🔍 DEBUG
-
-      const bumpTrigger = inputs.find(i => i.name === 'Trigger 2');
-
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        bumpTrigger.fire();
-      });
-    },
-
-    onStateChange: (event) => {
-      const state = event.data[0];
-
-      if (state === 'Fireup' || state === 'Flying') {
-        btn.innerHTML = 'Uploading...';
-        btn.style.backgroundColor = 'rgba(255,255,255,.5)';
-        document.body.style.backgroundColor = '#8cbdff';
-      }
-
-      if (state === 'Firedown') {
-        btn.innerHTML = 'Finished!';
-
-        setTimeout(() => {
-          btn.innerHTML = 'Upload File';
-          btn.style.backgroundColor = 'white';
-          document.body.style.backgroundColor = 'rgb(0, 110, 255)';
-        }, 1000);
-      }
-    }
-  });
-</script>
 
 </body>
 </html>
-
