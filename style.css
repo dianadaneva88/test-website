@@ -1,11 +1,4 @@
 /* Основни стилове (mobile first) */
-
-header {
-    background: #222;
-    color: white;
-    padding: 15px;
-    text-align: center;
-}
 body {
     height: 100vh;
     background-color: rgb(0, 110, 255);
@@ -35,6 +28,16 @@ canvas {
         display: inline-block;
         transition: background-color .3s;
     }
+}/* Основни стилове (mobile first) */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background: #222;
+    color: white;
+    padding: 15px;
 }
 
 nav {
@@ -84,34 +87,4 @@ footer {
         flex: 1;
         margin-bottom: 0;
     }
-    body {
-    height: 100vh;
-    background-color: rgb(0, 110, 255);
-    display: grid;
-    justify-content: center;
-    transition: background-color 1s;
-}
-
-canvas {
-    margin-top: -5em;
-    margin-bottom: -3em;
-    pointer-events: none;
-}
-
-.content {
-    text-align: center;
-
-    a {
-        background: white;
-        padding: 1em;
-        text-decoration: none;
-        font-family: 'Nunito';
-        color: black;
-        font-weight: bold;
-        border-radius: .3em;
-        width: 30%;
-        display: inline-block;
-        transition: background-color .3s;
-    }
-}
 }
