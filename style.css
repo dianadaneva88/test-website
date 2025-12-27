@@ -29,10 +29,6 @@ canvas {
         transition: background-color .3s;
     }
 }
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-}
 
 header {
     background: #222;
